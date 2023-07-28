@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
@@ -13,17 +13,7 @@ const App = () => {
   const [modalImage, setModalImage] = useState(null);
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    if (query) {
-      fetchImages();
-    }
-
-    return () => {
-      
-    };
-  }, [query, fetchImages]);
-
-  const fetchImages = () => {
+  const fetchImages = useCallback(() => {
     setIsLoading(true);
     const API_KEY = '38339557-524f2bcf27891a10b51d9cde6';
     const url = `https://pixabay.com/api/?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
@@ -38,12 +28,24 @@ const App = () => {
         console.error('Error fetching images:', error);
         setIsLoading(false);
       });
-  };
+  }, [query, page]);
+
+  useEffect(() => {
+    if (query) {
+      fetchImages();
+    }
+
+    return () => {
+      // Cleanup: Cancelar cualquier solicitud pendiente aquí si es necesario
+      // No es necesario realizar un cleanup en este caso, pero es útil si quisieras cancelar solicitudes
+      // pendientes cuando el componente se desmonte antes de que se complete la solicitud.
+    };
+  }, [query, fetchImages]);
 
   const handleSearchSubmit = (value) => {
     setQuery(value);
     setPage(1);
-    setImages([]); 
+    setImages([]);
   };
 
   const handleLoadMore = () => {
