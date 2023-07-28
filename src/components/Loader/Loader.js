@@ -1,12 +1,14 @@
 import React from 'react';
-import LoaderSpinner from 'react-loader-spinner';
+import { Hearts } from 'react-loader-spinner';
 
 const Loader = ({ visible }) => {
   return (
     <div className={`loader ${visible ? 'visible' : 'hidden'}`}>
-      <LoaderSpinner type="TailSpin" color="#00BFFF" height={100} width={100} />
+      
+      <Hearts type="TailSpin" color="#40332" height={100} width={80} />
     </div>
   );
 };
 
 export default Loader;
+
