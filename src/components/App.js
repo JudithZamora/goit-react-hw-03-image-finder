@@ -17,7 +17,11 @@ const App = () => {
     if (query) {
       fetchImages();
     }
-  }, [query]);
+
+    return () => {
+      
+    };
+  }, [query, fetchImages]);
 
   const fetchImages = () => {
     setIsLoading(true);
