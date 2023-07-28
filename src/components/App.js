@@ -38,8 +38,8 @@ const App = () => {
 
   const handleSearchSubmit = (value) => {
     setQuery(value);
-    setPage(1); // Reset page to 1 when a new search is submitted
-    setImages([]); // Clear the previous images when a new search is submitted
+    setPage(1);
+    setImages([]); 
   };
 
   const handleLoadMore = () => {
