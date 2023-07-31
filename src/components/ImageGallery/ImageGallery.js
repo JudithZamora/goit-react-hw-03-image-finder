@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ImageGallery = ({ children }) => {
-  return <ul className="gallery">{children}</ul>;
+  return <ul className="ImageGallery">{children}</ul>;
 };
 
 ImageGallery.propTypes = {

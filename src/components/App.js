@@ -36,9 +36,7 @@ const App = () => {
     }
 
     return () => {
-      // Cleanup: Cancelar cualquier solicitud pendiente aquí si es necesario
-      // No es necesario realizar un cleanup en este caso, pero es útil si quisieras cancelar solicitudes
-      // pendientes cuando el componente se desmonte antes de que se complete la solicitud.
+  
     };
   }, [query, fetchImages]);
 
@@ -61,8 +59,7 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Image Search</h1>
+    <body>
       <Searchbar onSubmit={handleSearchSubmit} />
       <ImageGallery>
         {images.map((image) => (
@@ -75,9 +72,10 @@ const App = () => {
         ))}
       </ImageGallery>
       <Loader visible={isLoading} />
+
       {images.length > 0 && <Button onClick={handleLoadMore} disabled={isLoading} />}
       <Modal isOpen={modalImage !== null} onClose={handleCloseModal} src={modalImage} alt="Modal Image" />
-    </div>
+    </body>
   );
 };
 

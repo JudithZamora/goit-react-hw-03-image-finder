@@ -10,8 +10,8 @@ const Modal = ({ isOpen, onClose, src, alt }) => {
 
   return (
     isOpen && (
-      <div className="overlay" onClick={handleCloseModal}>
-        <div className="modal">
+      <div className="Overlay" onClick={handleCloseModal}>
+        <div className="Modal">
           <img src={src} alt={alt} />
         </div>
       </div>

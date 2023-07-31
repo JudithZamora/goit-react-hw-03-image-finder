@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Button = ({ onClick, disabled }) => {
   return (
-    <button type="button" onClick={onClick} disabled={disabled}>
+    <button className='Button' type="button" onClick={onClick} disabled={disabled}>
       Load more
     </button>
   );
