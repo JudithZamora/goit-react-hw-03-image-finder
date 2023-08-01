@@ -9,7 +9,7 @@ const Modal = ({ isOpen, onClose, src, alt }) => {
   };
 
   return (
-    isOpen && (
+    isOpen && src && (
       <div className="Overlay" onClick={handleCloseModal}>
         <div className="Modal">
           <img src={src} alt={alt} />
@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, src, alt }) => {
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string, 
   alt: PropTypes.string.isRequired,
 };
 

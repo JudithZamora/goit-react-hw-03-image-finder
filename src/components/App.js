@@ -5,6 +5,7 @@ import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
+import { fetchImages } from './api';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -13,32 +14,18 @@ const App = () => {
   const [modalImage, setModalImage] = useState(null);
   const [page, setPage] = useState(1);
 
-  const fetchImages = useCallback(() => {
+  const fetchImagesFromAPI = useCallback(async () => {
     setIsLoading(true);
-    const API_KEY = '38339557-524f2bcf27891a10b51d9cde6';
-    const url = `https://pixabay.com/api/?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setImages((prevImages) => [...prevImages, ...data.hits]);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching images:', error);
-        setIsLoading(false);
-      });
+    const data = await fetchImages(query, page);
+    setImages((prevImages) => [...prevImages, ...data]);
+    setIsLoading(false);
   }, [query, page]);
 
   useEffect(() => {
     if (query) {
-      fetchImages();
+      fetchImagesFromAPI();
     }
-
-    return () => {
-  
-    };
-  }, [query, fetchImages]);
+  }, [query, fetchImagesFromAPI]);
 
   const handleSearchSubmit = (value) => {
     setQuery(value);
@@ -59,7 +46,7 @@ const App = () => {
   };
 
   return (
-    <body>
+    <div>
       <Searchbar onSubmit={handleSearchSubmit} />
       <ImageGallery>
         {images.map((image) => (
@@ -71,11 +58,10 @@ const App = () => {
           />
         ))}
       </ImageGallery>
-      <Loader visible={isLoading} />
-
+      {isLoading && <Loader />}
       {images.length > 0 && <Button onClick={handleLoadMore} disabled={isLoading} />}
       <Modal isOpen={modalImage !== null} onClose={handleCloseModal} src={modalImage} alt="Modal Image" />
-    </body>
+    </div>
   );
 };
 
